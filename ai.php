@@ -28,16 +28,16 @@ function local_yetkinlik_rule_based_comment(array $stats) {
     $text = get_string('generalcomment','local_yetkinlik').":<br>";
 
     if ($red) {
-        $text .= '<span style="color:red;">Henüz kazanmadığın konular: '.implode(', ', $red).'</span><br>';
+        $text .= '<span style="color:red;">'.get_string('comment_red','local_yetkinlik', implode(', ', $red)).'</span><br>';
     }
     if ($orange) {
-        $text .= '<span style="color:orange;">Kısmen öğrendiğin konular: '.implode(', ', $orange).'</span><br>';
+        $text .= '<span style="color:orange;">'.get_string('comment_orange','local_yetkinlik', implode(', ', $orange)).'</span><br>';
     }
     if ($blue) {
-        $text .= '<span style="color:blue;">Çoğunlukla öğrendiğin konular: '.implode(', ', $blue).'</span><br>';
+        $text .= '<span style="color:blue;">'.get_string('comment_blue','local_yetkinlik', implode(', ', $blue)).'</span><br>';
     }
     if ($green) {
-        $text .= '<span style="color:green;">Tamamen öğrendiğin konular: '.implode(', ', $green).'</span><br>';
+        $text .= '<span style="color:green;">'.get_string('comment_green','local_yetkinlik', implode(', ', $green)).'</span><br>';
     }
 
     return $text;
@@ -60,9 +60,9 @@ function local_yetkinlik_ai_comment(array $stats, $context = 'student') {
 
     // Prompt seçimi
     if ($context === 'school') {
-        $prompt = "Aşağıdaki kazanım yüzdelerine göre okul genelinde pedagojik analiz ve geliştirme stratejisi yaz:\n";
+        $prompt = get_string('ai_prompt_school','local_yetkinlik')."\n";
     } else {
-        $prompt = "Aşağıdaki kazanım yüzdelerine göre öğrenciye kısa pedagojik analiz yaz:\n";
+        $prompt = get_string('ai_prompt_student','local_yetkinlik')."\n";
     }
 
     foreach ($stats as $k => $v) {
@@ -77,7 +77,7 @@ function local_yetkinlik_ai_comment(array $stats, $context = 'student') {
     $postdata = json_encode([
         "model" => $model,
         "messages" => [
-            ["role" => "system", "content" => "Sen bir eğitim asistanısın. Öğrenciye veya okul geneline motive edici ve pedagojik yorumlar ver."],
+            ["role" => "system", "content" => get_string('ai_system_prompt','local_yetkinlik')],
             ["role" => "user", "content" => $prompt]
         ]
     ]);
@@ -96,7 +96,7 @@ function local_yetkinlik_ai_comment(array $stats, $context = 'student') {
         return $data['choices'][0]['message']['content'];
     }
 
-    return "AI çağrısı başarısız oldu.";
+    return get_string('ai_failed','local_yetkinlik');
 }
 
 /**
@@ -107,17 +107,13 @@ function local_yetkinlik_structured_comment(array $stats) {
 
     foreach ($stats as $shortname => $rate) {
         if ($rate <= 39) {
-            $text .= "<span style='color:red;'>$shortname: Başarı oranı %$rate. 
-            Bu konuda henüz yeterince ilerleme kaydedilmedi. Önerim: tekrar yap, ek kaynaklardan çalış ve öğretmenine sorularını yönelt.</span><br>";
+            $text .= "<span style='color:red;'>".get_string('structured_red','local_yetkinlik', ['shortname'=>$shortname,'rate'=>$rate])."</span><br>";
         } else if ($rate >= 40 && $rate <= 59) {
-            $text .= "<span style='color:orange;'>$shortname: Başarı oranı %$rate. 
-            Kısmen öğrenilmiş durumda. Önerim: daha fazla pratik yap, örnek sorular çöz ve bilgini pekiştir.</span><br>";
+            $text .= "<span style='color:orange;'>".get_string('structured_orange','local_yetkinlik', ['shortname'=>$shortname,'rate'=>$rate])."</span><br>";
         } else if ($rate >= 60 && $rate <= 79) {
-            $text .= "<span style='color:blue;'>$shortname: Başarı oranı %$rate. 
-            Çoğunlukla öğrenilmiş durumda. Önerim: tekrarlarla bilgini sağlamlaştır, eksik noktaları tamamla.</span><br>";
+            $text .= "<span style='color:blue;'>".get_string('structured_blue','local_yetkinlik', ['shortname'=>$shortname,'rate'=>$rate])."</span><br>";
         } else if ($rate >= 80) {
-            $text .= "<span style='color:green;'>$shortname: Başarı oranı %$rate. 
-            Tam öğrenilmiş durumda. Önerim: ileri düzey etkinliklere geç, bilgini farklı durumlarda uygula.</span><br>";
+            $text .= "<span style='color:green;'>".get_string('structured_green','local_yetkinlik', ['shortname'=>$shortname,'rate'=>$rate])."</span><br>";
         }
     }
 
