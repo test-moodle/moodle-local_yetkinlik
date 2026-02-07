@@ -79,3 +79,19 @@ $string['last30days']       = 'Son 30 gün';
 $string['last90days']       = 'Son 90 gün';
 $string['alltime']          = 'Tüm zaman';
 $string['successrate']      = 'Başarı Oranı (%)';
+$string['generalcomment'] = 'Genel yorum';
+$string['comment_red'] = 'Henüz kazanmadığın konular: {$a}';
+$string['comment_orange'] = 'Kısmen öğrendiğin konular: {$a}';
+$string['comment_blue'] = 'Çoğunlukla öğrendiğin konular: {$a}';
+$string['comment_green'] = 'Tamamen öğrendiğin konular: {$a}';
+
+$string['ai_not_configured'] = 'Yapay zekâ yapılandırılmamış.';
+$string['ai_prompt_student'] = 'Aşağıdaki kazanım yüzdelerine göre öğrenciye kısa pedagojik analiz yaz:';
+$string['ai_prompt_school'] = 'Aşağıdaki kazanım yüzdelerine göre okul genelinde pedagojik analiz ve geliştirme stratejisi yaz:';
+$string['ai_system_prompt'] = 'Sen bir eğitim asistanısın. Öğrenciye veya okul geneline motive edici ve pedagojik yorumlar ver.';
+$string['ai_failed'] = 'Yapay zekâ çağrısı başarısız oldu.';
+
+$string['structured_red'] = '{$a->shortname}: Başarı oranı %{$a->rate}. Bu konuda henüz yeterince ilerleme kaydedilmedi. Önerim: tekrar yap, ek kaynaklardan çalış ve öğretmenine sorularını yönelt.';
+$string['structured_orange'] = '{$a->shortname}: Başarı oranı %{$a->rate}. Kısmen öğrenilmiş durumda. Önerim: daha fazla pratik yap, örnek sorular çöz ve bilgini pekiştir.';
+$string['structured_blue'] = '{$a->shortname}: Başarı oranı %{$a->rate}. Çoğunlukla öğrenilmiş durumda. Önerim: tekrarlarla bilgini sağlamlaştır, eksik noktaları tamamla.';
+$string['structured_green'] = '{$a->shortname}: Başarı oranı %{$a->rate}. Tam öğrenilmiş durumda. Önerim: ileri düzey etkinliklere geç, bilgini farklı durumlarda uygula.';
